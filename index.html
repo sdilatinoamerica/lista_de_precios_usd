@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Precios TDI/SDI - Certificaciones de Buceo</title>
+        <link rel="icon" type="image/png" href="images/icon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #001f3f 0%, #0074D9 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            height: 60px;
+            width: auto;
+        }
+
+        .hero-title {
+            color: #0074D9;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: rgba(255, 255, 255, 0.98);
+            margin: 40px auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+
+        .content-wrapper {
+            padding: 60px 40px;
+        }
+
+        /* Section Headers */
+        .country-section {
+            margin-bottom: 80px;
+        }
+
+        .country-section:last-child {
+            margin-bottom: 0;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            color: #001f3f;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #0074D9, #39CCCC);
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: #0074D9;
+            margin-bottom: 25px;
+            margin-top: 50px;
+            padding-left: 15px;
+            border-left: 4px solid #39CCCC;
+        }
+
+        h3:first-of-type {
+            margin-top: 0;
+        }
+
+        /* Tables */
+        .table-container {
+            margin-bottom: 40px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            background: white;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e0 #f7fafc;
+        }
+
+        .table-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-track {
+            background: #f7fafc;
+            border-radius: 4px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: #cbd5e0;
+            border-radius: 4px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #a0aec0;
+        }
+
+        table {
+            width: 100%;
+            min-width: 800px;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: linear-gradient(135deg, #001f3f 0%, #0074D9 100%);
+            color: white;
+            padding: 18px 12px;
+            text-align: center;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.85rem;
+            position: relative;
+        }
+
+        th:first-child {
+            text-align: left;
+            min-width: 250px;
+        }
+
+        td {
+            padding: 16px 12px;
+            text-align: center;
+            border-bottom: 1px solid #f0f4f8;
+            transition: background-color 0.3s ease;
+        }
+
+        td:first-child {
+            text-align: left;
+            font-weight: 500;
+            color: #2c3e50;
+            background: #f8fafc;
+        }
+
+        tr:hover td {
+            background-color: #f0f9ff;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Special styling for reserved cells */
+        td[data-reserved="true"] {
+            background: #fef2f2 !important;
+            color: #dc2626;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .logo {
+                height: 50px;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+                margin-left: 0;
+            }
+
+            .content-wrapper {
+                padding: 40px 15px;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+                margin-bottom: 20px;
+                margin-top: 40px;
+            }
+
+            .table-container {
+                margin-bottom: 30px;
+                border-radius: 8px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            table {
+                min-width: 700px;
+                font-size: 0.8rem;
+            }
+
+            th, td {
+                padding: 12px 8px;
+                white-space: nowrap;
+            }
+
+            /* Scroll indicator */
+            .table-container::after {
+                content: '← Desliza para ver más →';
+                display: block;
+                text-align: center;
+                padding: 8px;
+                background: #f0f4f8;
+                color: #64748b;
+                font-size: 0.75rem;
+                font-weight: 500;
+                border-top: 1px solid #e2e8f0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content-wrapper {
+                padding: 30px 10px;
+            }
+
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            h3 {
+                font-size: 1.1rem;
+                padding-left: 10px;
+            }
+
+            table {
+                min-width: 600px;
+                font-size: 0.75rem;
+            }
+
+            th, td {
+                padding: 10px 6px;
+            }
+        }
+
+        /* Scroll animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .country-section {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <img src="images/LogoSDI.png" alt="TDI/SDI Logo" class="logo">
+                <h1 class="hero-title">Lista de Precios Certificaciones</h1>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                
+                <!-- Precios  -->
+                <section class="country-section">
+                    <h2>Precios en USD</h2>
+                    
+                    <h3>Certificaciones y Códigos eLearning</h3>
+                    <div class="table-container">
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Certificaciones y Códigos eLearning</th>
+                                        <th>Lista de Precios 1<br>Miembros</th>
+                                        <th>Lista de Precios 2<br>Training Facility</th>
+                                        <th>Lista de Precios 3<br>Dive Center</th>
+                                        <th>Lista de Precios 4<br>5 Star Dive Center</th>
+                                        <th>Lista de Precios 5<br>5 Star IDC</th>
+                                        <th>Lista de Precios 6<br>Dive Center</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Certificación Buceador SDI</td><td>26</td><td>21</td><td>19</td><td>17</td><td>15</td><td data-reserved="true">RESERVADO</td></tr>
+                                    <tr><td>Certificación Buceador TDI</td><td>28</td><td>23</td><td>21</td><td>19</td><td>17</td><td data-reserved="true">RESERVADO</td></tr>
+                                    <tr><td>Certificación Buceador ERDI</td><td>28</td><td>23</td><td>21</td><td>19</td><td>17</td><td data-reserved="true">RESERVADO</td></tr>
+                                    <tr><td>Certificación Buceador PFI</td><td>26</td><td>21</td><td>19</td><td>17</td><td>15</td><td data-reserved="true">RESERVADO</td></tr>
+                                    <tr><td>Certificación First Response</td><td>6</td><td>5</td><td>4</td><td>4</td><td>4</td><td data-reserved="true">RESERVADO</td></tr>
+                                    <tr><td>Código eLearning SDI</td><td>45</td><td>42</td><td>37</td><td>32</td><td>32</td><td data-reserved="true">RESERVADO</td></tr>
+                                    <tr><td>Código eLearning TDI</td><td>55</td><td>52</td><td>47</td><td>42</td><td>42</td><td data-reserved="true">RESERVADO</td></tr>
+                                    <tr><td>Código eLearning ERDI</td><td>65</td><td>62</td><td>57</td><td>52</td><td>52</td><td data-reserved="true">RESERVADO</td></tr>
+                                    <tr><td>Código eLearning PFI</td><td>45</td><td>42</td><td>37</td><td>32</td><td>32</td><td data-reserved="true">RESERVADO</td></tr>
+                                    <tr><td>Código eLearning First Response</td><td>22</td><td>22</td><td>17</td><td>15</td><td>13</td><td data-reserved="true">RESERVADO</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <h3>Profesionales y Renovaciones</h3>
+                    <div class="table-container">
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Profesionales y Renovaciones</th>
+                                        <th>Precio desde 15/12</th>
+                                        <th>Precio hasta 14/12</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Renovación Divemaster</td><td>110</td><td>100</td></tr>
+                                    <tr><td>Renovación Assistant Instructor</td><td>110</td><td>100</td></tr>
+                                    <tr><td>Renovación Instructor</td><td>240</td><td>210</td></tr>
+                                    <tr><td>Renovación Course Director</td><td>300</td><td>280</td></tr>
+                                    <tr><td>Renovación Instructor Trainer</td><td>300</td><td>280</td></tr>
+                                    <tr><td>Renovación Inactive</td><td>115</td><td>100</td></tr>
+                                    <tr><td>Renovación Centro de Buceo</td><td>220</td><td>200</td></tr>
+                                    <tr><td>Registro de Nuevo Profesional (DM/AI)</td><td>115</td><td>115</td></tr>
+                                    <tr><td>Registro de Nuevo Profesional (Instructor)</td><td>200</td><td>200</td></tr>
+                                    <tr><td>Actualización de Instructor de Especialidad</td><td>95</td><td>95</td></tr>
+                                    <tr><td>Registro Instructor First Response Only</td><td>50</td><td>50</td></tr>
+                                    <tr><td>Actualización Instructor First Response</td><td>25</td><td>25</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <h3>Materiales</h3>
+                    <div class="table-container">
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Kit Profesioanles</th>
+                                        <th>Precio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Kit Materiales Divemaster</td><td>250 USD</td></tr>
+                                    <tr><td>Kit Materiales Instructor</td><td>350 USD</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </section>
+
+            </div>
+        </div>
+    </main>
+</body>
+</html>
